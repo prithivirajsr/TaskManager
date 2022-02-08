@@ -1,0 +1,8 @@
+.table-row:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.modal-body {
+  font-weight: bolder;
+}

@@ -1,18 +1,28 @@
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { CookieService } from 'ngx-cookie-service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HeaderTokenInterceptor } from './services/header-token.interceptor';
+import { TaskService } from './services/task.service';
+import { UserService } from './services/user.service';
+import { SharedmoduleModule } from './sharedmodule/sharedmodule.module';
 
 @NgModule({
-  declarations: [
-    AppComponent
+  declarations: [AppComponent],
+  imports: [BrowserModule, SharedmoduleModule, AppRoutingModule],
+  providers: [
+    UserService,
+    TaskService,
+    CookieService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HeaderTokenInterceptor,
+      multi: true,
+    },
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

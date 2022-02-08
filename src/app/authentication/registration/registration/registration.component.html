@@ -1,0 +1,129 @@
+<!--Main container-->
+<div class="container">
+  <!--form container-->
+  <form
+    class="m-auto"
+    [formGroup]="registrationForm"
+    (ngSubmit)="userRegistration(registrationForm)"
+  >
+    <!--form heading-->
+    <h2 class="text-center">Registration</h2>
+
+    <!--Name Input element with validation-->
+    <div class="mb-2">
+      <label for="registration_name" class="form-label">Name</label>
+      <input
+        id="registration_name"
+        type="text"
+        class="form-control"
+        placeholder="Enter Your Name"
+        formControlName="name"
+        pattern="^[a-zA-Z]+$"
+      />
+      <small
+        *ngIf="
+          registrationForm.controls['name'].touched &&
+          registrationForm.controls['name'].invalid
+        "
+      >
+        <span *ngIf="registrationForm.controls['name'].hasError('required')">
+          This field is mandatory
+        </span>
+        <span *ngIf="registrationForm.controls['name'].hasError('pattern')">
+          This field accepts only alphabets
+        </span>
+      </small>
+    </div>
+
+    <!--Email input element with validation-->
+    <div class="mb-2">
+      <label for="registration_email" class="form-label">Email</label>
+      <input
+        id="registration_email"
+        type="email"
+        class="form-control"
+        placeholder="Enter Your Email"
+        formControlName="email"
+        email
+      />
+      <small
+        *ngIf="
+          registrationForm.controls['email'].touched &&
+          registrationForm.controls['email'].invalid
+        "
+      >
+        <span *ngIf="registrationForm.controls['email'].hasError('required')">
+          This field is mandatory
+        </span>
+        <span *ngIf="registrationForm.controls['email'].hasError('email')">
+          Please include '@' and continuation part of email
+        </span>
+      </small>
+    </div>
+
+    <!--Password input element with validation-->
+    <div class="mb-2">
+      <label for="registration_password" class="form-label">Password</label>
+      <input
+        id="registration_password"
+        type="password"
+        class="form-control"
+        placeholder="Enter Your Password"
+        formControlName="password"
+      />
+      <small
+        *ngIf="
+          registrationForm.controls['password'].touched &&
+          registrationForm.controls['password'].invalid
+        "
+      >
+        <span
+          *ngIf="registrationForm.controls['password'].hasError('required')"
+        >
+          This field is mandatory
+        </span>
+        <span
+          *ngIf="registrationForm.controls['password'].hasError('minlength')"
+        >
+          This field must contain atleast 7 characters
+        </span>
+      </small>
+    </div>
+
+    <!--Age input element with validation-->
+    <div class="mb-2">
+      <label for="registration_age" class="form-label">Age</label>
+      <input
+        id="registration_age"
+        type="number"
+        class="form-control"
+        placeholder="Enter Your Age"
+        formControlName="age"
+      />
+      <small
+        *ngIf="
+          registrationForm.controls['age'].touched &&
+          registrationForm.controls['age'].invalid
+        "
+      >
+        <span *ngIf="registrationForm.controls['age'].hasError('required')">
+          This field is mandatory
+        </span>
+        <span *ngIf="registrationForm.controls['age'].hasError('min')">
+          This field does not accept negative values & '0'
+        </span>
+      </small>
+    </div>
+
+    <!--Register button-->
+    <div class="button text-center">
+      <button
+        type="submit"
+        class="btn btn-success mt-2"
+        [disabled]="!registrationForm.valid"
+      >
+        Register
+      </button>
+    </div>
+  </form>
+</div>

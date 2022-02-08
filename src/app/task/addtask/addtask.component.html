@@ -1,0 +1,54 @@
+<!--Main container-->
+<div class="container-fluid">
+  <!--Heading-->
+  <h4 class="text-center mt-4">Add Task</h4>
+  <!--Form container-->
+  <div class="form p-3 my-4">
+    <!--Form-->
+    <form #addTaskForm="ngForm" (ngSubmit)="addTask(addTaskForm)">
+      <!--Task description input element with validation-->
+      <div class="form-group">
+        <label for="task_description" class="form-label"
+          >Task Description</label
+        >
+        <input
+          type="text"
+          class="form-control mt-1"
+          placeholder="Enter a task"
+          id="task_description"
+          [(ngModel)]="description"
+          name="description"
+          #taskInput="ngModel"
+          required
+        />
+        <small *ngIf="taskInput.touched && taskInput.invalid">
+          <span *ngIf="taskInput.hasError('required')"
+            >This field is mandatory</span
+          >
+        </small>
+        <!-- <input
+          type="date"
+          class="form-control mt-3"
+          [(ngModel)]="date"
+          name="date"
+          #dateInput="ngModel"
+          required
+          [min]="minDate"
+        />
+        <small *ngIf="dateInput.touched && dateInput.invalid">
+          <span *ngIf="dateInput.hasError('required')"
+            >This field is mandatory</span
+          >
+        </small> -->
+      </div>
+      <!--Add task button-->
+      <button
+        type="submit"
+        class="btn btn-success mt-4"
+        [disabled]="!addTaskForm.valid"
+      >
+        Add Task
+      </button>
+    </form>
+  </div>
+</div>

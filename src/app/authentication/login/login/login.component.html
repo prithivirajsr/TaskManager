@@ -1,0 +1,68 @@
+<!--Main container-->
+<div class="container">
+  <!--Login form-->
+  <form class="m-auto" #loginForm="ngForm" (ngSubmit)="userLogin(loginForm)">
+    <!--Login form heading-->
+    <h2 class="text-center">Login</h2>
+
+    <!--Email input element with validation-->
+    <div class="mb-2">
+      <label for="login_email" class="form-label">Email</label>
+      <input
+        id="login_email"
+        type="email"
+        class="form-control"
+        placeholder="Enter Your Email"
+        name="email"
+        #emailInput="ngModel"
+        [(ngModel)]="email"
+        required
+        email
+      />
+      <small *ngIf="emailInput.touched && emailInput.invalid">
+        <span *ngIf="emailInput.hasError('required')"
+          >This field is mandatory
+        </span>
+        <span *ngIf="emailInput.hasError('email')"
+          >Please include '@' and continuation part of email
+        </span>
+      </small>
+    </div>
+
+    <!--Password input element with validation-->
+    <div class="mb-2">
+      <label for="login_password" class="form-label">Password</label>
+      <input
+        id="login_password"
+        type="password"
+        class="form-control"
+        id="password"
+        placeholder="Enter Your Password"
+        name="password"
+        #passwordInput="ngModel"
+        [(ngModel)]="password"
+        required
+        minlength="7"
+      />
+      <small *ngIf="passwordInput.touched && passwordInput.invalid">
+        <span *ngIf="passwordInput.hasError('required')"
+          >This field is mandatory
+        </span>
+        <span *ngIf="passwordInput.hasError('minlength')"
+          >This field must contain atleast 7 characters
+        </span>
+      </small>
+    </div>
+
+    <!--Login button-->
+    <div class="button text-center">
+      <button
+        type="submit"
+        class="btn btn-success mt-2"
+        [disabled]="!loginForm.valid"
+      >
+        Login
+      </button>
+    </div>
+  </form>
+</div>

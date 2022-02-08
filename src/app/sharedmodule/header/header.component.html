@@ -1,0 +1,248 @@
+<!--Navbar-->
+<nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top shadow-sm">
+  <!--Inner container-->
+  <div class="container-fluid d-flex">
+    <div class="nav-content d-flex w-100 justify-content-between">
+      <!--Navbar heading-->
+      <h1 class="navbar-brand text-primary h1 font-weight-bolder">
+        TaskManager
+      </h1>
+      <!---Toggle button-->
+      <button
+        class="navbar-toggler navbar-toggler-right"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#mynavbar"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+    <!--Navbar buttons-->
+    <div class="collapse navbar-collapse justify-content-end" id="mynavbar">
+      <div class="d-flex">
+        <!--Login button-->
+        <button
+          *ngIf="!userName"
+          class="btn btn-primary"
+          type="button"
+          routerLink="/auth/login"
+        >
+          Login
+        </button>
+        <!--Registration button-->
+        <button
+          *ngIf="!userName"
+          class="btn btn-outline-primary"
+          type="button"
+          routerLink="/auth/registration"
+        >
+          Register
+        </button>
+        <!--Navbar dropdown-->
+        <li class="nav-item dropdown" *ngIf="userName">
+          <!--Displaying user's name-->
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            >{{ userName }}</a
+          >
+          <ul class="dropdown-menu">
+            <!--update profile link-->
+            <li>
+              <button
+                class="dropdown-item"
+                data-bs-toggle="modal"
+                data-bs-target="#updateProfileModal"
+                (click)="userProfile()"
+              >
+                <span><i class="fas fa-user-edit"></i></span>Update Profile
+              </button>
+            </li>
+            <!--Delete account link-->
+            <li>
+              <button
+                class="dropdown-item"
+                data-bs-toggle="modal"
+                data-bs-target="#deleteUserModal"
+              >
+                <span><i class="fas fa-user-slash"></i></span>Delete Account
+              </button>
+            </li>
+            <!--Logout link-->
+            <li>
+              <button class="dropdown-item" (click)="onLogout()">
+                <span><i class="fas fa-sign-out-alt"></i></span>Logout
+              </button>
+            </li>
+          </ul>
+        </li>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Update Profile Modal -->
+<div class="modal fade" id="updateProfileModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Update Profile Header -->
+      <div class="modal-header justify-content-center">
+        <!--Heading-->
+        <h4 class="modal-title">Update Profile</h4>
+      </div>
+
+      <!-- Update Profile body -->
+      <div class="modal-body">
+        <div class="profilepic d-flex justify-content-center m-auto">
+          <!--User profile picture-->
+          <img
+            class="profilepic__image"
+            [src]="imageFile"
+            width="150"
+            height="150"
+            alt="Image not"
+          />
+          <!--Image selection element and image upload button-->
+          <div class="profilepic__content">
+            <span class="profilepic__icon"><i class="fas fa-camera"></i></span>
+            <input type="file" (change)="onImageAdded($event)" />
+            <button
+              type="submit"
+              class="profilepic__text btn"
+              (click)="uploadImage()"
+            >
+              Update Picture
+            </button>
+            <button type="button" class="btn" (click)="deleteImage()">
+              <i class="fas fa-trash text-danger"></i>
+            </button>
+          </div>
+        </div>
+        <!--User data updation form-->
+        <form class="m-auto" [formGroup]="updateForm">
+          <!--Name input element with validation-->
+          <div class="mb-2">
+            <label for="update_name" class="form-label">Name</label>
+            <input
+              id="update_name"
+              type="text"
+              class="form-control"
+              id="name"
+              placeholder="Loading..."
+              formControlName="name"
+              pattern="^[a-zA-Z]+$"
+            />
+            <small
+              *ngIf="
+                updateForm.controls['name'].touched &&
+                updateForm.controls['name'].invalid
+              "
+            >
+              <span *ngIf="updateForm.controls['name'].hasError('required')">
+                This field is mandatory
+              </span>
+              <span *ngIf="updateForm.controls['name'].hasError('pattern')">
+                This field accepts only alphabets
+              </span>
+            </small>
+          </div>
+          <!--Email input element with validation-->
+          <div class="mb-2">
+            <label for="update_email" class="form-label">Email</label>
+            <input
+              id="update_email"
+              type="email"
+              class="form-control"
+              id="email"
+              placeholder="Loading..."
+              formControlName="email"
+              email
+            />
+            <small
+              *ngIf="
+                updateForm.controls['email'].touched &&
+                updateForm.controls['email'].invalid
+              "
+            >
+              <span *ngIf="updateForm.controls['email'].hasError('required')">
+                This field is mandatory
+              </span>
+              <span *ngIf="updateForm.controls['email'].hasError('email')">
+                Please include '@' and continuation part of email
+              </span>
+            </small>
+          </div>
+          <!--Age input element with validation-->
+          <div class="mb-2">
+            <label for="update_age" class="form-label">Age</label>
+            <input
+              id="update_age"
+              type="number"
+              class="form-control"
+              id="age"
+              placeholder="Loading..."
+              formControlName="age"
+            />
+            <small
+              *ngIf="
+                updateForm.controls['age'].touched &&
+                updateForm.controls['age'].invalid
+              "
+            >
+              <span *ngIf="updateForm.controls['age'].hasError('required')">
+                This field is mandatory
+              </span>
+              <span *ngIf="updateForm.controls['age'].hasError('min')">
+                This field does not accept negative values & '0'
+              </span>
+            </small>
+          </div>
+        </form>
+      </div>
+
+      <!-- Update Profile footer -->
+      <div class="modal-footer justify-content-between">
+        <!--Profile update and close button-->
+        <button
+          type="submit"
+          class="btn btn-success"
+          (click)="updateUser(updateForm)"
+        >
+          Update
+        </button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Delete User Modal-->
+<div class="modal fade" id="deleteUserModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!--Heading-->
+      <div class="modal-header">
+        <div class="modal-title text-danger">
+          <h4>Confirm Delete Account</h4>
+        </div>
+      </div>
+      <!--Modal bodt-->
+      <div class="modal-body">
+        <p>Are you sure to delete this Account?</p>
+      </div>
+      <!--Modal footer-->
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-danger" (click)="onDeleteUser()">
+          Delete Account
+        </button>
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

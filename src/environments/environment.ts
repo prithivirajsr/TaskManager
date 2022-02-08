@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  userServer: 'https://api-nodejs-todolist.herokuapp.com/user/',
+  taskServer: 'https://api-nodejs-todolist.herokuapp.com/task/',
 };
 
 /*

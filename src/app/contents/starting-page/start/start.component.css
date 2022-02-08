@@ -1,0 +1,18 @@
+.container-fluid {
+  text-align: center;
+  margin-top: 100px;
+  background-image: url("src\assets\images\bg-image.png");
+  width: 100%;
+  height: 80vh;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+div h1 {
+  font-size: 3rem;
+}
+
+button {
+  margin: auto;
+}

@@ -1,0 +1,162 @@
+<!--Main container-->
+<div class="container-fluid">
+  <!--Heading-->
+  <h4 class="text-center mt-3">Task List</h4>
+  <!--Inner container-->
+  <div class="taskCount">
+    <!--Inner heading-->
+    <h6>Tasks in a List: {{ taskCount }}</h6>
+    <div class="d-flex justify-content-between">
+      <!--Get completed task button-->
+      <button
+        type="submit"
+        class="btn btn-primary"
+        (click)="getCompletedTask()"
+      >
+        Get Completed Tasks
+      </button>
+      <!--Get all task button-->
+      <button type="submit" class="btn btn-primary" (click)="getAllTask()">
+        Get All Tasks
+      </button>
+    </div>
+  </div>
+  <!--Task list table-->
+  <div class="table-responsive mt-3">
+    <table class="table table-bordered table-secondary">
+      <!--Table head-->
+      <thead class="table-primary">
+        <tr class="text-center">
+          <th>Sl.No.</th>
+          <th>Task Description</th>
+          <th>Date(mm/dd/yy)</th>
+          <th>Status</th>
+          <th>Update Task</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <!--Table body-->
+      <tbody class="text-left">
+        <tr
+          *ngFor="let task of taskArray; let index = index"
+          (click)="getTaskById(task._id, index)"
+          class="table-row"
+        >
+          <td data-bs-toggle="modal" data-bs-target="#singleTaskModal">
+            {{ index + 1 }}
+          </td>
+          <td
+            class="text-capitalize"
+            data-bs-toggle="modal"
+            data-bs-target="#singleTaskModal"
+          >
+            {{ task.description }}
+          </td>
+          <td data-bs-toggle="modal" data-bs-target="#singleTaskModal">
+            {{ task.createdAt | date: "short" }}
+          </td>
+          <td data-bs-toggle="modal" data-bs-target="#singleTaskModal">
+            {{ task.completed ? "Completed" : "Open" }}
+          </td>
+          <td>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  [(ngModel)]="task.completed"
+                  (click)="updateTask(task._id, $event, index)"
+                />Completed
+              </label>
+            </div>
+          </td>
+          <td>
+            <!--Delete task button  -->
+            <button
+              type="button"
+              class="btn"
+              data-bs-toggle="modal"
+              data-bs-target="#deleteTaskModal"
+              (click)="onDelete(task._id)"
+            >
+              <i class="fas fa-trash text-danger"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Single task Modal -->
+  <div class="modal fade" id="singleTaskModal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <!-- Single task Modal Header -->
+        <div class="modal-header justify-content-center">
+          <!--Heading-->
+          <h4 class="modal-title">Task Details</h4>
+        </div>
+
+        <!-- Single task Modal body -->
+        <div class="modal-body">
+          <!--Modal Table-->
+          <table class="table">
+            <tbody class="font-weight-bolder">
+              <tr>
+                <td>Sl.No.</td>
+                <td>{{ singleTaskArray._id }}</td>
+              </tr>
+              <tr>
+                <td>Task Description</td>
+                <td>{{ singleTaskArray.description }}</td>
+              </tr>
+              <tr>
+                <td>Date(mm/dd/yy)</td>
+                <td>{{ singleTaskArray.createdAt | date: "short" }}</td>
+              </tr>
+              <tr>
+                <td class="font-weight-bolder">Status</td>
+                <td>{{ singleTaskArray.completed }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Single task Modal footer -->
+        <div class="modal-footer">
+          <!--Close button-->
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Delete Task Modal-->
+  <div class="modal fade" id="deleteTaskModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!--Heading-->
+        <div class="modal-header">
+          <div class="modal-title text-danger">
+            <h4>Confirm Delete Task</h4>
+          </div>
+        </div>
+        <!--Modal bodt-->
+        <div class="modal-body">
+          <p>Are you sure to delete the task?</p>
+        </div>
+        <!--Modal footer-->
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-danger" (click)="deleteTask()">
+            Delete Task
+          </button>
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
