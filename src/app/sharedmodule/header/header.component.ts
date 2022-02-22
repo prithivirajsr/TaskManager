@@ -96,6 +96,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe(
         (response: any) => {
           if (response.succes) {
+            this.newImageFile = new Blob();
             this.toastr.success('ProfileImage Successfully Updated');
          //   this.getUserImage();
           }

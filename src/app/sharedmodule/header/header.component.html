@@ -110,6 +110,7 @@
             <span class="profilepic__icon"><i class="fas fa-camera"></i></span>
             <input type="file" (change)="onImageAdded($event)" />
             <button
+              *ngIf="newImageFile.size"
               type="submit"
               class="profilepic__text btn"
               (click)="uploadImage()"
