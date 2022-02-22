@@ -39,7 +39,7 @@
           Register
         </button>
         <!--Navbar dropdown-->
-        <li class="nav-item dropdown" *ngIf="userName">
+        <div class="nav-item dropdown" *ngIf="userName">
           <!--Displaying user's name-->
           <a
             class="nav-link dropdown-toggle"
@@ -77,7 +77,8 @@
               </button>
             </li>
           </ul>
-        </li>
+        </div>
+        <img [src]="this.imageFile" height="50px" width="50px"/>
       </div>
     </div>
   </div>

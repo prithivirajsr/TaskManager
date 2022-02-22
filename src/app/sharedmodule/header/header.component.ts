@@ -47,13 +47,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     const userDetails = JSON.parse(localStorage.getItem('loginInfo') || '{}');
     if (userDetails && userDetails.name) {
       this.userName = userDetails.name;
+      this.getUserImage();
     }
     this.getLoggedInUserName = this.userService.loggedInUserName.subscribe(
       (data: any) => {
         this.userName = data;
+        this.getUserImage();
       }
     );
-    this.getUserImage();
   }
 
   /*  This function at first calls api in user service,
@@ -96,7 +97,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         (response: any) => {
           if (response.succes) {
             this.toastr.success('ProfileImage Successfully Updated');
-            this.getUserImage();
+         //   this.getUserImage();
           }
         },
         (error) => {
@@ -105,7 +106,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       );
   }
 
-  //This function is for getting userimage from server
+  //This function is for getting user image from server
   getUserImage() {
     this.getUserImagesubscriber = this.userService.getUserImage().subscribe(
       (response: any) => {
