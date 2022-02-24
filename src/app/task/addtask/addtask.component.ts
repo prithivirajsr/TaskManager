@@ -31,6 +31,7 @@ export class AddtaskComponent implements OnDestroy {
           if (response.success) {
             this.toastr.success('Task successfully added');
             this.taskService.taskData.next(response.data);
+            this.description = ''; //Setting up add task input field to empty
           }
         },
         (error) => {

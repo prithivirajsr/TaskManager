@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './auth.guard';
 import { PagenotfoundComponent } from './contents/pagenotfound/pagenotfound.component';
 
 /* Contents,Authentication,Task modules loaded when needed,
@@ -20,6 +21,7 @@ const routes: Routes = [
   {
     path: 'task',
     loadChildren: () => import('./task/task.module').then((m) => m.TaskModule),
+    canActivate: [AuthGuard],
   },
   {
     path: '**',

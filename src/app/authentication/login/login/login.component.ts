@@ -31,10 +31,11 @@ export class LoginComponent implements OnDestroy {
     this.loginsubscriber = this.userService.login(loginData.value).subscribe(
       (response: any) => {
         localStorage.setItem('loginInfo', JSON.stringify(response.user));
-        this.userService.loggedInUserName.next(response.user.name);
         this.cookieService.set('loginToken', response.token);
         this.toastr.success('Login Successfull');
         this.router.navigate(['/task']);
+        this.userService.userInfo = response.user;
+        this.userService.loggedInUserName.next(response.user.name);
       },
       (error) => {
         this.toastr.error(

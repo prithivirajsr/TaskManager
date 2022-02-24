@@ -5,18 +5,22 @@
   <!--Inner container-->
   <div class="taskCount">
     <!--Inner heading-->
-    <h6>Tasks in a List: {{ taskCount }}</h6>
+    <!--<h6>Tasks in a List: {{ taskCount }}</h6>-->
     <div class="d-flex justify-content-between">
       <!--Get completed task button-->
       <button
         type="submit"
-        class="btn btn-primary"
+        class="btn btn-primary btn-sm"
         (click)="getCompletedTask()"
       >
         Get Completed Tasks
       </button>
       <!--Get all task button-->
-      <button type="submit" class="btn btn-primary" (click)="getAllTask()">
+      <button
+        type="submit"
+        class="btn btn-primary btn-sm"
+        (click)="getAllTask()"
+      >
         Get All Tasks
       </button>
     </div>
@@ -116,7 +120,7 @@
               </tr>
               <tr>
                 <td class="font-weight-bolder">Status</td>
-                <td>{{ singleTaskArray.completed }}</td>
+                <td>{{ singleTaskArray.completed ? "Completed" : "Open" }}</td>
               </tr>
             </tbody>
           </table>
@@ -149,7 +153,12 @@
         </div>
         <!--Modal footer-->
         <div class="modal-footer">
-          <button type="submit" class="btn btn-danger" (click)="deleteTask()">
+          <button
+            type="submit"
+            class="btn btn-danger"
+            data-bs-dismiss="modal"
+            (click)="deleteTask()"
+          >
             Delete Task
           </button>
           <button type="button" class="btn btn-success" data-bs-dismiss="modal">

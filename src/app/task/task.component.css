@@ -1,10 +1,10 @@
 .container-fluid {
-  margin: 150px 0;
+  margin: 100px 0;
   width: 100%;
 }
 
 .inner-container {
-  height: 300px;
+  height: 500px;
 }
 
 .addTaskList {

@@ -1,9 +1,9 @@
 <!--Main container-->
 <div class="container-fluid">
   <!--Heading-->
-  <h4 class="text-center mt-4">Add Task</h4>
+  <h4 class="text-center mt-3">Add Task</h4>
   <!--Form container-->
-  <div class="form p-3 my-4">
+  <div class="form p-3 my-5">
     <!--Form-->
     <form #addTaskForm="ngForm" (ngSubmit)="addTask(addTaskForm)">
       <!--Task description input element with validation-->
@@ -13,7 +13,7 @@
         >
         <input
           type="text"
-          class="form-control mt-1"
+          class="form-control mt-3"
           placeholder="Enter a task"
           id="task_description"
           [(ngModel)]="description"
@@ -21,11 +21,11 @@
           #taskInput="ngModel"
           required
         />
-        <small *ngIf="taskInput.touched && taskInput.invalid">
+        <!-- <small *ngIf="taskInput.touched && taskInput.invalid">
           <span *ngIf="taskInput.hasError('required')"
             >This field is mandatory</span
           >
-        </small>
+        </small> -->
         <!-- <input
           type="date"
           class="form-control mt-3"

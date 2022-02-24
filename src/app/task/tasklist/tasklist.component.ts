@@ -123,8 +123,8 @@ export class TasklistComponent implements OnInit, OnDestroy {
       .subscribe(
         (response: any) => {
           if (response.success) {
-            this.toastr.success('Task Deleted Successfully');
             this.getAllTask();
+            this.toastr.success('Task Deleted Successfully');
           }
         },
         (error) => {

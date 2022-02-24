@@ -78,7 +78,13 @@
             </li>
           </ul>
         </div>
-        <img [src]="this.imageFile" height="50px" width="50px"/>
+        <img
+          class="header-img"
+          *ngIf="userName"
+          [src]="this.imageFile"
+          height="50px"
+          width="50px"
+        />
       </div>
     </div>
   </div>
@@ -103,12 +109,12 @@
             [src]="imageFile"
             width="150"
             height="150"
-            alt="Image not"
+            alt="Image not found"
           />
           <!--Image selection element and image upload button-->
           <div class="profilepic__content">
             <span class="profilepic__icon"><i class="fas fa-camera"></i></span>
-            <input type="file" (change)="onImageAdded($event)" />
+            <input #fileInput type="file" (change)="onImageAdded($event)" />
             <button
               *ngIf="newImageFile.size"
               type="submit"
@@ -210,6 +216,7 @@
         <button
           type="submit"
           class="btn btn-success"
+          data-bs-dismiss="modal"
           (click)="updateUser(updateForm)"
         >
           Update
@@ -238,7 +245,12 @@
       </div>
       <!--Modal footer-->
       <div class="modal-footer">
-        <button type="submit" class="btn btn-danger" (click)="onDeleteUser()">
+        <button
+          type="submit"
+          class="btn btn-danger"
+          data-bs-dismiss="modal"
+          (click)="onDeleteUser()"
+        >
           Delete Account
         </button>
         <button type="button" class="btn btn-success" data-bs-dismiss="modal">

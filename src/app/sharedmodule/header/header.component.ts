@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
@@ -17,6 +23,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   userName: string = '';
   imageFile: any = '../../../assets/images/avatar.png'; //default image source path
   newImageFile: Blob = new Blob(); //blob for image
+
+  @ViewChild('fileInput') fileInput!: ElementRef;
   //Subscribers for api calls
   logoutsubscriber = new Subscription();
   userProfilesubscriber = new Subscription();
@@ -61,7 +69,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   if the response is success,
   then assigning received values from server to form Values, */
   userProfile() {
-    this.getUserImage();
+    //this.getUserImage();
     this.userProfilesubscriber = this.userService.getUserInfo().subscribe(
       (response: any) => {
         this.updateForm = this.formBuilder.group({
@@ -96,13 +104,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe(
         (response: any) => {
           if (response.succes) {
-            this.newImageFile = new Blob();
-            this.toastr.success('ProfileImage Successfully Updated');
-         //   this.getUserImage();
+            this.newImageFile = new Blob(); //Resetting the newImageFile blob value.
+            this.toastr.success('Profile Image Successfully Updated');
+            this.fileInput.nativeElement.value = ''; //REsetting the file input value to empty
+            //   this.getUserImage();
           }
         },
         (error) => {
-          this.toastr.error(error.error.error);
+          this.toastr.error(error.error.error, 'Select different image');
         }
       );
   }
@@ -130,6 +139,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         if (response.success) {
           this.toastr.success('ProfileImage Successfully Deleted');
           this.imageFile = '../../../assets/images/avatar.png';
+          this.newImageFile = new Blob(); //Resetting the newImageFile blob value.
         }
       },
       (error) => {

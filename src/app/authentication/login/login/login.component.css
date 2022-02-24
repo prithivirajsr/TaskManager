@@ -25,3 +25,19 @@ form {
 .btn {
   width: 350px;
 }
+
+/*style for form input elements
+.ng-invalid,.ng-touched,.ng-valid classes are added by angular dynamically
+ based on input field user actions*/
+input.ng-invalid.ng-touched {
+  border: 2px solid #f00;
+}
+
+input.ng-valid {
+  border: 2px solid green;
+}
+
+small {
+  color: #f00;
+  font-weight: bolder;
+}
