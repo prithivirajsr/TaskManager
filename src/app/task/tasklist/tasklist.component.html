@@ -49,12 +49,8 @@
           <td data-bs-toggle="modal" data-bs-target="#singleTaskModal">
             {{ index + 1 }}
           </td>
-          <td
-            class="text-capitalize"
-            data-bs-toggle="modal"
-            data-bs-target="#singleTaskModal"
-          >
-            {{ task.description }}
+          <td data-bs-toggle="modal" data-bs-target="#singleTaskModal">
+            {{ task.description | capitalize }}
           </td>
           <td data-bs-toggle="modal" data-bs-target="#singleTaskModal">
             {{ task.createdAt | date: "short" }}
@@ -102,7 +98,7 @@
         </div>
 
         <!-- Single task Modal body -->
-        <div class="modal-body">
+        <div class="modal-body" appBoldtaskmodal>
           <!--Modal Table-->
           <table class="table">
             <tbody class="font-weight-bolder">
