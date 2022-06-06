@@ -42,7 +42,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     public cookieService: CookieService,
     public formBuilder: FormBuilder,
     private sanitizer: DomSanitizer
-  ) {}
+  ) { }
 
   //default form values for profile updation form
   updateForm = this.formBuilder.group({

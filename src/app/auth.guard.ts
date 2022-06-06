@@ -14,7 +14,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private cookieService: CookieService, private router: Router) {}
+  constructor(private cookieService: CookieService, private router: Router) { }
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -28,6 +28,7 @@ export class AuthGuard implements CanActivate {
     if (localStorageInfo && cookieInfo != null) {
       return true;
     } else {
+      this.router.navigate(['/start']);
       return false;
     }
   }
